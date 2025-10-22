@@ -1,16 +1,30 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --accent-x: #4f46e5;  
+  --accent-o: #e11d48;  
+  --accent-win: #10b981; 
+
+  --radius: 0.75rem;
 }
+
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent-x: var(--accent-x);
+  --color-accent-o: var(--accent-o);
+  --color-accent-win: var(--accent-win);
+  --radius-xl: var(--radius);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -19,8 +33,42 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+@layer base {
+  html, body, #__next {
+    height: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--foreground) 16%, transparent);
+  }
+}
+
+
+@layer utilities {
+  .rounded-card { border-radius: var(--radius); }
+  .text-accent-x { color: var(--color-accent-x); }
+  .text-accent-o { color: var(--color-accent-o); }
+  .ring-accent-win { --tw-ring-color: var(--color-accent-win); }
+}
+
+
+html[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+html[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
